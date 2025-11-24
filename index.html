@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1.0"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
     <meta name="google-site-verification" content="f0X9T9nLE3cdET3VZmjmf83upmw0XpuxwPmKBuDRemY" />
     <meta name="description" content="The complete relationship companion app for couples. Track moods, plan dates, share secret notes, and grow your relationship health together. Available on Android and Web." />
@@ -47,12 +47,14 @@
         box-sizing: border-box;
       }
 
-      body {
+      html, body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden; /* Force hide horizontal scroll */
         font-family: "Nunito", sans-serif;
         background-color: var(--cream);
         color: var(--text-dark);
         line-height: 1.6;
-        overflow-x: hidden; /* Crucial for mobile */
       }
 
       a {
@@ -140,7 +142,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        flex-wrap: wrap; /* Allows wrapping on small screens */
+        flex-wrap: wrap; 
         gap: 15px;
       }
 
@@ -173,12 +175,13 @@
         align-items: center;
         padding: 0;
         position: relative;
-        margin-top: -72px; /* Pull behind header */
-        padding-top: 120px; /* Push content down */
+        margin-top: -72px; 
+        padding-top: 120px; 
         padding-bottom: 60px;
+        /* THE FIX: Hide overflow here so blobs don't push width */
+        overflow: hidden; 
       }
 
-      /* Background blobs - adjusted for mobile safety */
       .hero::before,
       .hero::after {
         content: "";
@@ -520,6 +523,7 @@
         background: linear-gradient(135deg, var(--teal), #3bb5ac);
         color: #ffffff;
         position: relative;
+        /* THE FIX: Ensure overflow is hidden here too for background blobs */
         overflow: hidden;
         border-top-left-radius: 40px;
         border-top-right-radius: 40px;
@@ -530,6 +534,7 @@
         border-radius: 50%;
         background: rgba(255, 255, 255, 0.1);
         z-index: 0;
+        pointer-events: none;
       }
 
       .b1 { width: 300px; height: 300px; top: -50px; left: -100px; }
@@ -562,8 +567,8 @@
 
       .review-card {
         width: 350px;
-        /* Responsive width for mobile to prevent overflow */
-        max-width: 85vw;
+        /* THE FIX: Constraint max-width relative to viewport width */
+        max-width: 80vw;
         flex-shrink: 0;
         margin-right: 30px; 
         background: rgba(255, 255, 255, 0.15);
@@ -700,7 +705,7 @@
         text-decoration: none;
         font-size: 1.1rem;
         transition: color 0.2s;
-        word-break: break-all; /* Prevents long emails from breaking layout */
+        word-break: break-all;
       }
 
       .contact-link-item a:hover {
@@ -807,7 +812,7 @@
         align-items: center;
       }
 
-      /* --- IMPROVED RESPONSIVE MEDIA QUERIES --- */
+      /* --- RESPONSIVE MEDIA QUERIES --- */
       @media (max-width: 1024px) {
         .grid-3 {
           grid-template-columns: repeat(2, 1fr);
@@ -815,7 +820,6 @@
       }
 
       @media (max-width: 768px) {
-        /* General Layout */
         .container {
            padding: 0 20px;
         }
@@ -834,7 +838,7 @@
         /* Hero */
         .hero { 
           padding: 60px 0 40px; 
-          min-height: auto; /* Allow height to be natural on mobile */
+          min-height: auto; 
           margin-top: 0;
         }
         .hero-grid { 
@@ -863,7 +867,7 @@
           justify-content: center; 
         }
 
-        /* Blobs */
+        /* Blobs Correction for Mobile */
         .hero::before { width: 300px; height: 300px; top: 0; left: -100px; }
         .hero::after { width: 250px; height: 250px; bottom: 0; right: -80px; }
 
@@ -882,10 +886,10 @@
           padding: 15px;
         }
         .step-row.active {
-          transform: translateX(0); /* Disable shift on mobile */
+          transform: translateX(0);
         }
         .steps-phone-container { 
-          display: none; /* Hide phone anim on small screens to save space */
+          display: none; 
         }
 
         /* Features */
